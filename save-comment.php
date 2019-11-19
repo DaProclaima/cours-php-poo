@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CE FICHIER DOIT ENREGISTRER UN NOUVEAU COMMENTAIRE EST REDIRIGER SUR L'ARTICLE !
+ * CE FICHIER DOIT ENREGISTRER UN NOUVEAU COMMENTAIRE ET REDIRIGER SUR L'ARTICLE !
  * 
  * On doit d'abord vérifier que toutes les informations ont été entrées dans le formulaire
  * Si ce n'est pas le cas : un message d'erreur
@@ -13,6 +13,7 @@
  * 
  * Et enfin on pourra rediriger l'utilisateur vers l'article en question
  */
+require_once('libraries/database.php');
 
 /**
  * 1. On vérifie que les données ont bien été envoyées en POST
@@ -55,10 +56,7 @@ if (!$author || !$article_id || !$content) {
  * 
  * PS : Ca fait pas genre 3 fois qu'on écrit ces lignes pour se connecter ?! 
  */
-$pdo = new PDO('mysql:host=localhost;dbname=blogpoo;charset=utf8', 'root', '', [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
+$pdo = getPdo();
 
 $query = $pdo->prepare('SELECT * FROM articles WHERE id = :article_id');
 $query->execute(['article_id' => $article_id]);
