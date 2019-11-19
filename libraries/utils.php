@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * render the html view of an element
+ *
+ * @param string $path
+ * @param array $variables
+ * @return void
+ */
 function render(string $path, array $variables = []) {
 
     extract($variables);
@@ -9,6 +16,14 @@ function render(string $path, array $variables = []) {
     $pageContent = ob_get_clean();
 
     require('templates/layout.html.php');
+}
 
+
+function redirect(string $url): void
+ {
+    header("Location: $url");
+    exit();
 
 }
+
+
